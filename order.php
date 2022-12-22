@@ -4,8 +4,9 @@
     <?php
       if(isset($_POST["addNew"])){
          $total2 = 0;
+         $as =  $_SESSION['online'];
          $curentdate = date("Y-m-d H:i:s");
-         $_POST["user_id"]=0;
+         $_POST["user_id"]=$as;
          $_POST["status"]=0;
          $_POST["datecreate"]=$curentdate;
          if($_SESSION['cart']==0){

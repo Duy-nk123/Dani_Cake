@@ -54,7 +54,7 @@ include_once 'db.php';
                                <p>Giỏ Hàng</p>
                         </div>
                         <div class="logo-bt .d-none .d-sm-block">
-                            <a   href="logout.php"><i class='bx bx-shuffle'></i></a>
+                            <a   href="index1.php"><i class='bx bx-shuffle'></i></a>
                             <p>Đăng Xuất</p>
                            </div>
                         </div>

@@ -81,7 +81,7 @@ include_once "db.php"
                                         <a onclick="adcart(<?php echo $pro[0]?>)"  class="btn btn-danger w-100"  >Add To Cart</a>
                                     </div>
                                     <div class="col-lg-6">
-                                        <a href="index.php" class="btn btn-success w-100">Shop Now</a>
+                                        <a href="indexcustomer.php" class="btn btn-success w-100">Shop Now</a>
                                     </div>
                                 </div>
                             </div>

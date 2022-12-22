@@ -4,6 +4,7 @@
     require "connect.php";
     session_start();
     error_reporting(E_ERROR | E_PARSE);
+  
     if ($_SESSION['online'] == '') {
         if (isset($_POST['LGsubmit'])) {
             $tk = $_POST['LGusername'];
@@ -77,7 +78,7 @@
  <body>
      <div class="main">
          <div class="header">
-             <button class="js-login-register"> Đăng Nhập / Đăng Ký </button>
+             <button class="button-71 js-login-register "> Đăng Nhập / Đăng Ký </button>
          </div>
      </div>
      <!-- /////////////////LOGIN///////////////// -->

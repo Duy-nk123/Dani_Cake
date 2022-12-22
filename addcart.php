@@ -134,9 +134,9 @@ include 'funtion.php';
                             <h3 > Tổng Tiền:<span><?php echo $sum1?></span><sup>đ</sup> </h3>
                         </div>
                         
-                        <div class="button text-right" style="text-align: right;">
-                            <a  style="color: #fff;" class="btn btn-primary"  href="indexcustomer.php">Tiếp tục mua hàng</a>
-                            <a  id="thanh1" style="color: #fff;" class="btn btn-primary " onclick="thanhtoan()" disabled="disabled">Tiến hành thanh toán</a>
+                        <div class="button text-right" style="text-align: right; display: flex; justify-content: flex-end ;">
+                            <a style="width:200px;"  style="color: #fff;" class="btn btn-primary"  href="indexcustomer.php">Tiếp tục mua hàng</a>
+                            <a style="width:200px;"  id="thanh1" style="color: #fff;" class="btn btn-primary dp-none ml-2 " onclick="thanhtoan()" >Tiến hành thanh toán</a>
                             <!-- <a  style="color: #fff;" class="btn btn-primary " href="./order.php">Tiến hành thanh toán</a> -->
                         </div>
         </div>
@@ -154,15 +154,14 @@ include 'funtion.php';
 <script >
     function Function(){
         // document.getElementById("thanh1").disabled = true;
-        // rowCount=0;
-        // var rowCount = $('#myTable tr').length;
+      
+        var rowCount = $('#myTable tr').length;
         // alert (rowCount);
         // alert("Hello! I am an alert box!!");
-        // if(rowCount ==1){
-        //     document.getElementById("thanh").disabled = true;
-        // }else{
-        //     document.getElementById("thanh").disabled = false;
-        // }
+        if(rowCount >1){
+            let thongtin1 = document.getElementById('thanh1')
+            thongtin1.classList.add('display-blookk');
+        }
         
     //     document.getElementById("thanhtoan11").disabled = true;
     //    var x = ($('table').columnCount());
@@ -182,7 +181,7 @@ include 'funtion.php';
         numbe =$('#quanlyti_'+ID).val();
         $.post("updatecart.php", {"ID": ID, "numbe": numbe}, function(data){
             //afterupdate cart
-            $("#listcart").load("http://localhost:8080/DaniCake/addcart.php #cartx");
+            $("#listcart").load("http://localhost:8080/Dani_Cake/addcart.php #cartx");
         });
       
    
@@ -190,7 +189,7 @@ include 'funtion.php';
    function deletee(ID) {
     $.post("updatecart.php", {"ID": ID, "numbe": 0}, function(data){
             //afterupdate cart
-            $("#listcart").load("http://localhost:8080/DaniCake/addcart.php #cartx");
+            $("#listcart").load("http://localhost:8080/Dani_Cake/addcart.php #cartx");
         });
         
    }

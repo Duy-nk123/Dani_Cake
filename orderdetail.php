@@ -1,29 +1,32 @@
 <?php
-require "connect.php";
+include_once 'db.php';
 session_start();
 
 if (isset($_GET["ID"])) {
     $ID = $_GET["ID"];
-    $sql = "SELECT * FROM oder WHERE id = '$ID'";
-    $result = mysqli_query($conn, $sql);
-    $rows = mysqli_fetch_assoc($result);
+    $sql = "SELECT * FROM orders WHERE id = ".$ID ;
+   
+    $result =query($sql);
 } else {
     $ID = $_SESSION['online'];
-    $sql = "SELECT * FROM oder WHERE id = " . $_SESSION['online'];
-    $result = mysqli_query($conn, $sql);
-    $rows = mysqli_fetch_assoc($result);
+    $sql = "SELECT * FROM orders WHERE id = " . $_SESSION['online'];
+    $result =query($sql);
 }
 if (isset($_POST['updateorder'])) {
     $Status = $_POST["status"];
-    $sql = "UPDATE oder SET Status='$Status' WHERE id=" . $ID;
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
+    $sql = "UPDATE orders SET Status='$Status' WHERE id=" . $ID;
+    $result1 = query($sql);
+    if ($result1) {
         echo "<script type='text/javascript'>alert('Sửa thành công!')</script>";
         header("location:orderdetail.php?ID=" . $ID);
     } else {
         echo "Failed";
     }
 }
+    
+    foreach ($result as $rows){
+        
+        
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,36 +47,37 @@ if (isset($_POST['updateorder'])) {
         <div class="form" style="max-width:30%">
             <form action="" method="POST">
                 <label for="username">Tên Người Nhận Hàng</label>
-                <input value="<?php echo $rows['name']; ?>" readonly>
+                <input value="<?php echo $rows[3]; ?>" readonly>
                 <label for="username">Địa Chỉ</label>
-                <input value="<?php echo $rows['address']; ?>" readonly>
+                <input value="<?php echo $rows[5]; ?>" readonly>
                 <label for="username">Số Điện Thoại</label>
-                <input value="<?php echo $rows['phone']; ?>" readonly>
+                <input value="<?php echo $rows[6]; ?>" readonly>
                 <label for="username">Ghi Chú</label>
-                <input value="<?php echo $rows['message']; ?>" readonly>
+                <input value="<?php echo $rows[7]; ?>" readonly>
                 <label for="catalog">Trạng Thái Đơn Hàng</label>
                 <select name="status" id="status">
                     <?php
-                    if ($rows['Status'] == 0) {
+                    if ($rows[9] == 0) {
                         echo "<option selected value='0'>Chưa Xử Lý</option>";
                     } else {
                         echo "<option value='0'>Chưa Xử Lý</option>";
                     }
-                    if ($rows['Status'] == 1) {
+                    if ($rows[9] == 1) {
                         echo "<option selected value='1'>Đang Giao</option>";
                     } else {
                         echo "<option value='1'>Đang Giao</option>";
                     }
-                    if ($rows['Status'] == 2) {
+                    if ($rows[9] == 2) {
                         echo "<option selected value='2'>Đã Giao</option>";
                     } else {
                         echo "<option value='2'>Đã Giao </option>";
                     }
-                    if ($rows['Status'] == 3) {
+                    if ($rows[9] == 3) {
                         echo "<option selected value='3'>Đã Hủy/option>";
                     } else {
                         echo "<option value='3'>Đã Hủy</option>";
                     }
+                }
                     ?>
                 </select>
                 <br>
@@ -90,21 +94,22 @@ if (isset($_POST['updateorder'])) {
                 </tr>
                 <?php
                // $sql = "SELECT product.Name,order_detail.Quantity,order_detail.Price,orders.Total FROM product,orders,order_detail WHERE orders.ID=order_detail.Order_ID AND order_detail.Product_ID = product.ID  ORDER BY order_detail.Product_ID";
-               $sql = "SELECT product.name,orderdetail.pro_number,orderdetail.pro_price,oder.total FROM product,oder,orderdetail WHERE oder.id=orderdetail.order_id AND orderdetail.pro_id = product.id  ORDER BY orderdetail.pro_id";
-               $result = mysqli_query($conn, $sql);
-                while ($row = mysqli_fetch_array($result)) {
+               $sql = "SELECT product.Name,order_detail.pro_number,order_detail.pro_price,.orders.total FROM product,orders,order_detail WHERE orders.id=order_detail.order_id AND order_detail.pro_id=product.ID AND orders.id= ".$ID." ORDER BY order_detail.pro_id;";
+               $result = query($sql);
+               echo $sql;
+                foreach ($result as $row) {
                 ?>
                     <tr>
-                        <td><?php echo $row["name"]; ?></td>
-                        <td><?php echo $row["pro_number"]; ?></td>
-                        <td><?php echo number_format($row["pro_price"], 0, ",", "."); ?></td>
+                        <td><?php echo $row[0]; ?></td>
+                        <td><?php echo $row[1]; ?></td>
+                        <td><?php echo number_format($row[2], 0, ",", "."); ?></td>
                     </tr>
                 <?php
                 }
                 ?>
                 <tr>
                     <td>Tổng tiền :</td>
-                    <td><?php echo $rows['total']; ?></td>
+                    <td><?php echo $row[3]; ?></td>
                 </tr>
             </table>
         </div>
